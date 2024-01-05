@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.perfma.wrapped:com.sun.tools:1.8.0_jdk8u275-b01_linux_x64">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Maven/repository/com/perfma/wrapped/com.sun.tools/1.8.0_jdk8u275-b01_linux_x64/com.sun.tools-1.8.0_jdk8u275-b01_linux_x64.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Maven/repository/com/perfma/wrapped/com.sun.tools/1.8.0_jdk8u275-b01_linux_x64/com.sun.tools-1.8.0_jdk8u275-b01_linux_x64-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Maven/repository/com/perfma/wrapped/com.sun.tools/1.8.0_jdk8u275-b01_linux_x64/com.sun.tools-1.8.0_jdk8u275-b01_linux_x64-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

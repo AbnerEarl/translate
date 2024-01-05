@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cn.zvo.http:http:1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Maven/repository/cn/zvo/http/http/1.2/http-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Maven/repository/cn/zvo/http/http/1.2/http-1.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Maven/repository/cn/zvo/http/http/1.2/http-1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
