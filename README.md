@@ -9,14 +9,14 @@
 
 在工作和生活中，是否遇到过这样的场景：
 
-1）有些文档很长且不是自己擅长的语言，阅读起来很费力，需要把文档进行翻译之后再阅读；
-2）文档格式很复杂，各种图片、表格、很多种不同的样式，不是一个纯文本文档，复制过去粘贴出现格式混乱，复制翻译很麻烦；
-3）有些机密文档，不能在互联网场景下查看，不能与外网产生直接或者间接的接触；
-4）源文档翻译之后需要查找关键词搜索；
-5）有时候需要一键翻译为多种不同的语言，以及来回翻译；
-6）一个网页给全球的不同国家的人查看，自动翻译为对应的语言；
-8）兼容原有项目，无需改动页面、无语言配置文件、无API Key、对SEO友好！
-9）其他
+ - 1）有些文档很长且不是自己擅长的语言，阅读起来很费力，需要把文档进行翻译之后再阅读；
+ - 2）文档格式很复杂，各种图片、表格、很多种不同的样式，不是一个纯文本文档，复制过去粘贴出现格式混乱，复制翻译很麻烦；
+ - 3）有些机密文档，不能在互联网场景下查看，不能与外网产生直接或者间接的接触；
+ - 4）源文档翻译之后需要查找关键词搜索；
+ - 5）有时候需要一键翻译为多种不同的语言，以及来回翻译；
+ - 6）一个网页给全球的不同国家的人查看，自动翻译为对应的语言；
+ - 8）兼容原有项目，无需改动页面、无语言配置文件、无API Key、对SEO友好！
+ - 9）其他
 
 -----
 
@@ -107,7 +107,7 @@ export password=1234567890
 # 
 
 cd ~
-wget https://gitee.com/mail_osc/translate_service/raw/master/install/huaweicloud_config.sh -O huaweicloud_config.sh && chmod -R 777 huaweicloud_config.sh && sh ./huaweicloud_config.sh
+wget https://github.com/AbnerEarl/translate/blob/main/script/huaweicloud_config.sh -O huaweicloud_config.sh && chmod -R 777 huaweicloud_config.sh && sh ./huaweicloud_config.sh
 ````
 运行后完成设置，等待两分钟重启服务，然后测试一下，完成。
 
