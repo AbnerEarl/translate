@@ -3,7 +3,7 @@
 # 常规方式安装translate.js的后端翻译接口服务，比如可以在阿里云、腾讯云、等别的云服务上进行安装本系统。在 CentOS 7.4 (没7.4的话7.6等应该也行) 
 #
 
-# properties.jar 操作properties使用。说明：https://gitee.com/mail_osc/properties 
+# properties.jar 操作properties使用。说明：https://github.com/AbnerEarl/translate
 export propertiesDownUrl=http://down.zvo.cn/properties/properties-1.0.1.jar
 
 

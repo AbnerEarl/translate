@@ -19,7 +19,7 @@ public class TranslateSite implements java.io.Serializable{
 
 	private Integer id;	//主键,自动编号 
 	private String name;	//站点名字，只是给自己看的，方便辨别 
-	private String language;	//当前语种，当前站点的语种是什么，如 english ，跟 http://api.translate.zvo.cn/doc/language.json.html 这里的值对应 
+	private String language;	//当前语种，当前站点的语种是什么，如 english ，跟 http://localhost:8060/doc/language.json.html 这里的值对应
 	private String url;	//站点网址，格式如 www.zvo.cn 
 	private Integer userid;	//此条记录属于哪个用户,user.id
 	
@@ -39,7 +39,7 @@ public class TranslateSite implements java.io.Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name = "language", columnDefinition="char(30) COMMENT '当前语种，当前站点的语种是什么，如 english ，跟 http://api.translate.zvo.cn/doc/language.json.html 这里的值对应'")
+	@Column(name = "language", columnDefinition="char(30) COMMENT '当前语种，当前站点的语种是什么，如 english ，跟 http://localhost:8060/doc/language.json.html 这里的值对应'")
 	public String getLanguage() {
 		return language;
 	}

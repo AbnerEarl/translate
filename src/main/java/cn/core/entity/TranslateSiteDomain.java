@@ -20,7 +20,7 @@ public class TranslateSiteDomain implements java.io.Serializable{
 	private Integer id;	//自动编号
 	private Integer siteid;	//对应 translateSite.id 
 	private String domain;	//绑定的域名，比如 english.xxxxxx.com 
-	private String language;	//翻译语种，要翻译为的语种,该域名访问看到的语种。如 english ，跟 http://api.translate.zvo.cn/doc/language.json.html 这里的值对应 
+	private String language;	//翻译语种，要翻译为的语种,该域名访问看到的语种。如 english ，跟 http://localhost:8060/doc/language.json.html 这里的值对应
 	private Integer userid;	//此条记录属于哪个用户,user.id
 	
 	@Id
@@ -39,7 +39,7 @@ public class TranslateSiteDomain implements java.io.Serializable{
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-	@Column(name = "language", columnDefinition="char(20) COMMENT '翻译语种，要翻译为的语种,该域名访问看到的语种。如 english ，跟 http://api.translate.zvo.cn/doc/language.json.html 这里的值对应'")
+	@Column(name = "language", columnDefinition="char(20) COMMENT '翻译语种，要翻译为的语种,该域名访问看到的语种。如 english ，跟 http://localhost:8060/doc/language.json.html 这里的值对应'")
 	public String getLanguage() {
 		return language;
 	}

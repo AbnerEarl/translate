@@ -55,18 +55,28 @@ public class ServiceInterfaceImplement implements ServiceInterface {
 
     @Override
     public TranslateResultVO api(String from, String to, JSONArray array) {
+
+        System.out.println("TranslateResultVO=====11===========");
+        System.out.println(array.size());
+        System.out.println(array);
         TranslateResultVO vo = new TranslateResultVO();
         vo.setText(new JSONArray());
 
-        List<JSONArray> list = JSONUtil.split(array, 2000); //长度不能超过2000字符，所以针对2000进行截取
-        for (int i = 0; i < list.size(); i++) {
-            TranslateResultVO vf = requestApi(from, to, list.get(i));
-            if(vf.getResult() - TranslateResultVO.FAILURE == 0) {
-                return vf;
+        for (int n=0;n<array.size();n++) {
+            JSONArray tempArray=new JSONArray();
+            tempArray.add(array.get(n));
+            List<JSONArray> list = JSONUtil.split(tempArray, 2000); //长度不能超过2000字符，所以针对2000进行截取
+            System.out.println("TranslateResultVO=====22===========");
+            System.out.println(list.size());
+            System.out.println(list);
+            for (int i = 0; i < list.size(); i++) {
+                TranslateResultVO vf = requestApi(from, to, list.get(i));
+                if (vf.getResult() - TranslateResultVO.FAILURE == 0) {
+                    return vf;
+                }
+                System.out.println(i + ", " + vf.toString());
+                vo.getText().addAll(vf.getText());
             }
-//			System.out.println(i+", "+vf.toString());
-
-            vo.getText().addAll(vf.getText());
         }
 
         vo.setFrom(from);

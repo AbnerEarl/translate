@@ -27,7 +27,7 @@ public class HtmlCacheUtil {
 	/**
 	 * 向缓存中设置或更新，将置顶访问页面的翻译结果进行缓存
 	 * @param sourcedomain 源站域名，传入如 www.leimingyun.com ，翻译之前的网站，本身就有的网站
-	 * @param language 语种，格式如 chinese_simplified ，对应 http://api.translate.zvo.cn/doc/language.json.html
+	 * @param language 语种，格式如 chinese_simplified ，对应 http://localhost:8060/doc/language.json.html
 	 * @param path 访问的文件的path，比如访问的是 http://english.xxx.com/a/b/c.html?a=1 ，那么这里传入 /a/b/c.html?a=1
 	 * @param text 内容
 	 */
@@ -45,7 +45,7 @@ public class HtmlCacheUtil {
 	/**
 	 * 通过访问的文件名，取缓存中是否有存放这个文件翻译的结果。
 	 * @param sourcedomain 源站域名，传入如 www.leimingyun.com ，翻译之前的网站，本身就有的网站
-	 * @param language 语种，格式如 chinese_simplified ，对应 http://api.translate.zvo.cn/doc/language.json.html
+	 * @param language 语种，格式如 chinese_simplified ，对应 http://localhost:8060/doc/language.json.html
 	 * @param path 访问的文件的path，比如访问的是 http://english.xxx.com/a/b/c.html?a=1 ，那么这里传入 /a/b/c.html?a=1
 	 * @return 如果有，返回 {@link Response} 直接将其返回响应， 如果没有，则返回null
 	 */

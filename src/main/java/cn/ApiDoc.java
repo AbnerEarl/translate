@@ -12,12 +12,12 @@ public class ApiDoc {
 		JavaDoc doc = new com.xnx3.doc.JavaDoc("cn.zvo.translate.service.api.controller");
 //		doc.templatePath = "/Users/apple/Downloads/javadoc/";		//本地模板所在磁盘的路径
 		doc.name = "translate.js 接口文档";				//文档的名字
-		doc.domain = "https://api.translate.zvo.cn";				//文档中默认的接口请求域名
+		doc.domain = "http://localhost:8060";				//文档中默认的接口请求域名
 		doc.version = "2.20230807";						//当前做的软件系统的版本号
 		doc.welcome = "适用于 treaslate.js v2.x 版本，配合 treaslate.js 一起使用，达到无需改动原本网页，两行js即可让网页具备多国语言翻译的能力。<br/>"
-				+ "translage.js 开源仓库及使用说明参考： <a href=\"https://gitee.com/mail_osc/translate\" target=\"_black\">https://gitee.com/mail_osc/translate</a><br/>"
+				+ "translage.js 开源仓库及使用说明参考： <a href=\"https://github.com/AbnerEarl/translate\" target=\"_black\">https://github.com/AbnerEarl/translate</a><br/>"
 				+ "<br/>"
-				+ "本文档基于 https://gitee.com/leimingyun/javadoc 自动生成";
+				+ "本文档基于自动生成";
 		
 		doc.generateHtmlDoc();	//生成文档
 	}
