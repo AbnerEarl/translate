@@ -18,20 +18,23 @@ import java.util.Map;
 public class ServiceInterfaceImplement implements ServiceInterface {
 
     static Http http; //http请求工具类，使用参考 https://github.com/AbnerEarl/translate/http.java
+
     static {
         http = new Http();
     }
+
     private String domain = "http://127.0.0.1:8888/"; //格式如 http://192.168.31.29:5353/  部署 LibreTranslate 的域名
 
 
     public ServiceInterfaceImplement() {
         // TODO Auto-generated constructor stub
     }
+
     public ServiceInterfaceImplement(Map<String, String> config) {
-        if(config == null) {
+        if (config == null) {
             return;
         }
-        if(config.get("domain") == null) {
+        if (config.get("domain") == null) {
             return;
         }
         this.domain = config.get("domain");
@@ -56,25 +59,21 @@ public class ServiceInterfaceImplement implements ServiceInterface {
     @Override
     public TranslateResultVO api(String from, String to, JSONArray array) {
 
-        System.out.println("TranslateResultVO=====11===========");
-        System.out.println(array.size());
-        System.out.println(array);
         TranslateResultVO vo = new TranslateResultVO();
         vo.setText(new JSONArray());
 
-        for (int n=0;n<array.size();n++) {
-            JSONArray tempArray=new JSONArray();
+        for (int n = 0; n < array.size(); n++) {
+            JSONArray tempArray = new JSONArray();
             tempArray.add(array.get(n));
             List<JSONArray> list = JSONUtil.split(tempArray, 2000); //长度不能超过2000字符，所以针对2000进行截取
-            System.out.println("TranslateResultVO=====22===========");
-            System.out.println(list.size());
-            System.out.println(list);
             for (int i = 0; i < list.size(); i++) {
                 TranslateResultVO vf = requestApi(from, to, list.get(i));
                 if (vf.getResult() - TranslateResultVO.FAILURE == 0) {
-                    return vf;
+//                    return vf;
+                    vo.getText().addAll(list.get(i));
+                    continue;
                 }
-                System.out.println(i + ", " + vf.toString());
+
                 vo.getText().addAll(vf.getText());
             }
         }
@@ -112,17 +111,17 @@ public class ServiceInterfaceImplement implements ServiceInterface {
         String sourceText = payload.toString();
 
         try {
-            System.out.println(from+":::"+to);
-
             Map<String, String> params = new HashMap<String, String>();
-            params.put("mode", from+"2"+to);
+            params.put("mode", from + "2" + to);
             params.put("text", sourceText);
-
+            System.out.println("from: " + from);
+            System.out.println("to: " + to);
+            System.out.println("text: " + sourceText);
             Map<String, String> header = new HashMap<String, String>();
             header.put("accept", "application/json");
             header.put("Content-Type", "application/x-www-form-urlencoded");
 
-            Response response = http.post(domain+"translate",params,header);
+            Response response = http.post(domain + "translate", params, header);
 //			Response response = http.post("http://192.168.31.29:5353/translate",params,header);
 
 
@@ -137,11 +136,11 @@ public class ServiceInterfaceImplement implements ServiceInterface {
                     vo.setTo(to);
                     vo.setText(JSONArray.fromObject(texts));
                     vo.setBaseVO(TranslateResultVO.SUCCESS, "SUCCESS");
-                }else {
+                } else {
                     vo.setBaseVO(TranslateResultVO.FAILURE, "error : " + response.message);
                 }
-            }else {
-                vo.setBaseVO(TranslateResultVO.FAILURE, "http code:"+response.getCode()+", content:"+response.getContent());
+            } else {
+                vo.setBaseVO(TranslateResultVO.FAILURE, "http code:" + response.getCode() + ", content:" + response.getContent());
             }
 
         } catch (IOException e) {
