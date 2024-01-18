@@ -1,22 +1,58 @@
-// document.write("<script language=javascript src='http://localhost:8060/static/language.js'></script>");
-// translate.request.api.host='http://localhost:8060/';
-// translate.execute();
-
-
+var serverAddr = "http://localhost:8060/"
 var script = document.createElement("script");
-
 script.type = "text/javascript";
-
 // Firefox，Opera，Chrome，Safari 3+
-
 script.onload = function () {
-    translate.request.api.host = 'http://localhost:8060/';
+    translate.request.api.host = serverAddr;
+    // setTimeout(function(){ console.log("loading……"); }, 3000);
     translate.execute();
     translate.execute();
+
+    ajax1("language.json").then(
+        res => {
+            let resValue = JSON.parse(res);
+            var selectElement = document.createElement("select"); // 创建一个新的 <select> 元素
+            selectElement.setAttribute("id", "selectid"); //给select添加id
+            document.body.appendChild(selectElement); // 将该元素添加到页面上
+            selectElement.style.cssText = "margin:0px 20px; position: fixed;top:20px;right:20px;width:100px;z-index:9999";
+            defaultLang = window.localStorage.getItem('local_language')
+            // JavaScript部分
+            for (let i = 1; i <= resValue.list.length; i++) {
+                // 遍历数字从1到5
+                var optionElement = document.createElement("option"); // 创建一个新的选项元素
+                optionElement.textContent = resValue.list[i - 1].name; // 设置选项文本内容为"Option X"（X表示当前循环变
+                optionElement.value = resValue.list[i - 1].id;
+                if (optionElement.value === defaultLang) {
+                    optionElement.selected = true;
+                }
+                selectElement.appendChild(optionElement); // 将选项元素添加到 <select> 元素中
+            }
+            let changeKey = "";
+            selectElement.addEventListener("change", function ({target}) {
+                changeKey = target.value;
+                ajax2("translate.json", sl, changeKey).then(
+                    res => {
+                        let resValue = JSON.parse(res);
+                        tl = resValue.text;
+
+                        tl.forEach((item, index) => {
+                            data[index]["node"].origText = data[index]["node"].nodeValue;
+                            data[index]["node"].nodeValue = item; //更改文本
+                        });
+                    },
+                    function (err) {
+                        reject(err);
+                    },
+                );
+            });
+        },
+        function (err) {
+            reject(err);
+        },
+    );
 }
 
-script.src = "http://localhost:8060/static/language.js";
-
+script.src = serverAddr + "static/language.js";
 document.getElementsByTagName("head")[0].appendChild(script);
 
 
@@ -36,7 +72,7 @@ function ajax1(url) {
                 reject("服务器错误");
             }
         };
-        xhr.open("get", url, true);
+        xhr.open("get", serverAddr + url, true);
         xhr.send(null);
     });
 }
@@ -58,7 +94,7 @@ function ajax2(url, text, text2) {
                 reject("服务器错误");
             }
         };
-        xhr.open("post", url, true);
+        xhr.open("post", serverAddr + url, true);
         var arr = text;
         var formData = new FormData();
         defaultLang = window.localStorage.getItem('local_language')
@@ -69,56 +105,12 @@ function ajax2(url, text, text2) {
     });
 }
 
-ajax1("http://localhost:8060/language.json").then(
-    res => {
-        let resValue = JSON.parse(res);
-        var selectElement = document.createElement("select"); // 创建一个新的 <select> 元素
-        selectElement.setAttribute("id", "selectid"); //给select添加id
-        document.body.appendChild(selectElement); // 将该元素添加到页面上
-        selectElement.style.cssText = "margin:0px 20px; position: fixed;top:20px;right:20px;width:100px;z-index:9999";
-        defaultLang = window.localStorage.getItem('local_language')
-        // JavaScript部分
-        for (let i = 1; i <= resValue.list.length; i++) {
-            // 遍历数字从1到5
-            var optionElement = document.createElement("option"); // 创建一个新的选项元素
-            optionElement.textContent = resValue.list[i - 1].name; // 设置选项文本内容为"Option X"（X表示当前循环变
-            optionElement.value = resValue.list[i - 1].id;
-            if (optionElement.value === defaultLang) {
-                optionElement.selected = true;
-            }
-            selectElement.appendChild(optionElement); // 将选项元素添加到 <select> 元素中
-        }
-        let changeKey = "";
-        selectElement.addEventListener("change", function ({target}) {
-            changeKey = target.value;
-            ajax2("http://localhost:8060/translate.json", sl, changeKey).then(
-                res => {
-                    let resValue = JSON.parse(res);
-                    tl = resValue.text;
-
-                    tl.forEach((item, index) => {
-                        data[index]["node"].origText = data[index]["node"].nodeValue;
-                        data[index]["node"].nodeValue = item; //更改文本
-                    });
-                },
-                function (err) {
-                    reject(err);
-                },
-            );
-        });
-    },
-    function (err) {
-        reject(err);
-    },
-);
-
-
 // window.localStorage.setItem("local_language", "chinese_simplified");
 
 function listen(callback) {
     // 获取 HTML 文档中的所有元素，但不包括 下列 选择器的元素
 
-    var exclude = ["head", "pre", "script", "textarea", "select", "option", "h1"]; //排除名单
+    var exclude = ["head", "pre", "script", "textarea", "img"]; //排除名单
     var selectors = [];
     exclude.forEach((item, index) => {
         selectors.push(item); //排除该元素
@@ -218,13 +210,14 @@ listen(function () {
     }
     time = setTimeout(async () => {
         data.forEach((item, index) => {
-            if (item.element.nodeName != "OPTION") {
+            if (item.element.nodeName != "OPTION" && item.element.parentElement.id != "selectid") {
                 sl.push(item["text"]);
             }
         });
-        // var tl = await translation_arr(sl) //返回一个数组[[翻译结果,源语言类型],...*]//使用的谷歌批量翻译API,这里就不提供了
+
+        // var tl = await translation_arr(sl) //返回一个数组[[翻译结果,源语言类型],...*] //使用批量翻译API,这里就不提供了
         // sl传入数组
-        // ajax2("http://localhost:8060/translate.json", sl,window.localStorage.getItem('local_language')).then(
+        // ajax2("translate.json", sl,window.localStorage.getItem('local_language')).then(
         //   res => {
         //     let resValue = JSON.parse(res);
         //     tl = resValue.text;
@@ -239,6 +232,7 @@ listen(function () {
         // );
 
         //这里的this指向的是input
+
     }, 500);
 
     data.push(this);
